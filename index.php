@@ -1,0 +1,57 @@
+<!-- header.phpに記述 -->
+<?php get_header(); ?>
+<?php get_template_part('template-parts/pickup_by_tag'); ?>
+
+<!-- content -->
+<div id="content">
+	<div class="inner">
+
+		<!-- primary -->
+		<main id="primary">
+
+			<!-- entries -->
+			<div class="entries">
+				<!-- 投稿を取得してループで回す -->
+				<?php if (have_posts()) : ?>
+					<?php while (have_posts()) : ?>
+						<?php the_post(); ?>
+						<!-- entry-item -->
+						<a href="<?php the_permalink(); ?>" class="entry-item">
+							<!-- entry-item-img -->
+							<div class="entry-item-img">
+								<?php if (has_post_thumbnail()) : ?>
+									<?php the_post_thumbnail(); ?>
+								<?php else : ?>
+									<img src="<?php echo get_template_directory_uri(); ?>/img/noimg.png" alt="">
+								<?php endif; ?>
+
+							</div><!-- /entry-item-img -->
+
+							<!-- entry-item-body -->
+							<div class="entry-item-body">
+								<div class="entry-item-meta">
+									<div class="entry-item-tag"><?php my_the_post_category(false) ?></div><!-- /entry-item-tag -->
+									<time class="entry-item-published" datetime="<?php the_time('c') ?>"><?php the_time('Y/n/j') ?></time><!-- /entry-item-published -->
+								</div><!-- /entry-item-meta -->
+								<h2 class="entry-item-title"><?php the_title(); ?></h2><!-- /entry-item-title -->
+								<div class="entry-item-excerpt">
+									<p><?php the_excerpt(); ?></p>
+								</div><!-- /entry-item-excerpt -->
+							</div><!-- /entry-item-body -->
+						</a><!-- /entry-item -->
+					<?php endwhile; ?>
+				<?php endif; ?>
+			</div><!-- /entries -->
+
+			<?php get_template_part('template-parts/pagination'); ?>
+
+		</main><!-- /primary -->
+
+		<!-- sidebar.phpに記述 -->
+		<?php get_sidebar(); ?>
+
+	</div><!-- /inner -->
+</div><!-- /content -->
+
+<!-- footer.phpに記述 -->
+<?php get_footer(); ?>
